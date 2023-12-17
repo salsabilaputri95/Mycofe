@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css.css" />
+    <title>Pembelian Kopi</title>
+  </head>
+  <body>
+    <header>
+      <h1>Selamat Datang di Toko Kopi Kita</h1>
+    </header>
+    <div class="menu">
+      <h2>Menu Kopi</h2>
+      <div class="item">
+        <img src="coffee1.jpg" alt="Kopi Arabika" />
+        <h3>Kopi Arabika</h3>
+        <p>Rasa kopi yang halus dan ringan.</p>
+        <p>Harga: $5.00</p>
+        <button class="buy-button" onclick="addToCart('Kopi Arabika', 5.00)">
+          Beli
+        </button>
+      </div>
+      <div class="item">
+        <img src="coffee2.jpg" alt="Kopi Robusta" />
+        <h3>Kopi Robusta</h3>
+        <p>Rasa kopi yang kuat dan penuh.</p>
+        <p>Harga: $6.00</p>
+        <button class="buy-button" onclick="addToCart('Kopi Robusta', 6.00)">
+          Beli
+        </button>
+      </div>
+    </div>
+    <div class="cart">
+      <h2>Keranjang Belanja</h2>
+      <ul id="cart-items"></ul>
+      <p>Total Harga: $<span id="total-price">0.00</span></p>
+      <button class="buy-button" onclick="checkout()">Checkout</button>
+    </div>
+    <script>
+      let cart = [];
+      let totalPrice = 0;
+
+      function addToCart(item, price) {
+        cart.push({ item, price });
+        totalPrice += price;
+        updateCart();
+      }
+
+      function updateCart() {
+        const cartItems = document.getElementById("cart-items");
+        cartItems.innerHTML = "";
+        cart.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.item} - $${item.price}`;
+          cartItems.appendChild(li);
+        });
+
+        const total = document.getElementById("total-price");
+        total.textContent = totalPrice.toFixed(2);
+      }
+
+      function checkout() {
+        if (cart.length === 0) {
+          alert("Keranjang belanja kosong.");
+        } else {
+          alert(`Total harga: $${totalPrice.toFixed(2)}`);
+          // Lakukan tindakan lain seperti mengirimkan pesanan ke server, dll.
+        }
+      }
+
+      updateCart();
+    </script>
+  </body>
+</html>
